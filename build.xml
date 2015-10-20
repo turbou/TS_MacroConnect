@@ -3,7 +3,7 @@
     <target name="jar">
         <jar basedir="bin" jarfile="macroconnect.jar">
             <manifest>
-                 <attribute name="Plugin-Class" value="jp.co.nri.ttsplugin.MacroConnectPlugin"/>
+                 <attribute name="Plugin-Class" value="jp.co.tabocom.tsplugin.macroconnect.MacroConnectPlugin"/>
              </manifest>
       	</jar>
     </target>

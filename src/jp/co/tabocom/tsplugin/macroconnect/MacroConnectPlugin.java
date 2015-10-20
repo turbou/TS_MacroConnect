@@ -1,4 +1,4 @@
-package jp.co.nri.ttsplugin;
+package jp.co.tabocom.tsplugin.macroconnect;
 
 import java.io.File;
 import java.io.FilenameFilter;

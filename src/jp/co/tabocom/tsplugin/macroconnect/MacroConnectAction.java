@@ -1,4 +1,4 @@
-package jp.co.nri.ttsplugin;
+package jp.co.tabocom.tsplugin.macroconnect;
 
 import java.io.BufferedReader;
 import java.io.File;
