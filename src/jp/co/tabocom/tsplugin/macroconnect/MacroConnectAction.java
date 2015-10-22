@@ -37,7 +37,7 @@ public class MacroConnectAction extends TeraTermStationAction {
     }
 
     @Override
-    public boolean isValid(TargetNode node) {
+    public boolean isValid() {
         if (node.getIpAddr() != null && node.getUseMacroType() != UseMacroType.UNUSED) {
             return true;
         }
