@@ -20,6 +20,17 @@ public class MacroConnectBulkAction extends TeratermStationBulkAction {
 
     @Override
     public void run() {
+        System.out.println("run!!");
+    }
+
+    @Override
+    public String getDisplayName() {
+        return "マクロの使用...";
+    }
+
+    @Override
+    public String getDescription() {
+        return "*.macroファイルを選択することにより、一括接続されたサーバに対して定型処理を実行することができます。";
     }
 
 }

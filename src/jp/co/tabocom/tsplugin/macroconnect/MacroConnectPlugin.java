@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -69,7 +70,7 @@ public class MacroConnectPlugin implements TeratermStationPlugin {
 
     @Override
     public List<TeratermStationBulkAction> getBulkActions(List<TargetNode> nodeList, Shell shell) {
-        return null;
+        return new ArrayList<TeratermStationBulkAction>(Arrays.asList(new MacroConnectBulkAction(nodeList, shell)));
     }
 
     @Override
