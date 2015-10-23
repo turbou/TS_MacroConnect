@@ -25,12 +25,12 @@ public class MacroConnectBulkAction extends TeratermStationBulkAction {
 
     @Override
     public String getDisplayName() {
-        return "マクロの使用...";
+        return "繝槭け繝ｭ縺ｮ菴ｿ逕ｨ...";
     }
 
     @Override
     public String getDescription() {
-        return "*.macroファイルを選択することにより、一括接続されたサーバに対して定型処理を実行することができます。";
+        return "*.macro繝輔ぃ繧､繝ｫ繧帝∈謚槭☆繧九％縺ｨ縺ｫ繧医ｊ縲∽ｸ諡ｬ謗･邯壹＆繧後◆繧ｵ繝ｼ繝舌↓蟇ｾ縺励※螳壼梛蜃ｦ逅�繧貞ｮ溯｡後☆繧九％縺ｨ縺後〒縺阪∪縺吶�";
     }
 
 }
