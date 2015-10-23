@@ -11,18 +11,19 @@ import java.util.Map;
 
 import jp.co.tabocom.teratermstation.Main;
 import jp.co.tabocom.teratermstation.model.TargetNode;
-import jp.co.tabocom.teratermstation.plugin.TeraTermStationPlugin;
-import jp.co.tabocom.teratermstation.ui.action.TeraTermStationAction;
+import jp.co.tabocom.teratermstation.plugin.TeratermStationPlugin;
+import jp.co.tabocom.teratermstation.ui.action.TeratermStationAction;
+import jp.co.tabocom.teratermstation.ui.action.TeratermStationBulkAction;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.swt.widgets.Shell;
 
-public class MacroConnectPlugin implements TeraTermStationPlugin {
+public class MacroConnectPlugin implements TeratermStationPlugin {
 
     @Override
-    public List<TeraTermStationAction> getActions(TargetNode node, Shell shell, ISelectionProvider selectionProvider) {
-        List<TeraTermStationAction> list = new ArrayList<TeraTermStationAction>();
+    public List<TeratermStationAction> getActions(TargetNode node, Shell shell, ISelectionProvider selectionProvider) {
+        List<TeratermStationAction> list = new ArrayList<TeratermStationAction>();
 
         FilenameFilter macroFilter = new FilenameFilter() {
             @Override
@@ -64,6 +65,11 @@ public class MacroConnectPlugin implements TeraTermStationPlugin {
             list.add(new MacroConnectAction(node, shell, selectionProvider, file));
         }
         return list;
+    }
+
+    @Override
+    public List<TeratermStationBulkAction> getBulkActions(List<TargetNode> nodeList, Shell shell) {
+        return null;
     }
 
     @Override

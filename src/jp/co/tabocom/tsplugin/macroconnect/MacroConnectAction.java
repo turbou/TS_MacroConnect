@@ -23,9 +23,9 @@ import jp.co.tabocom.teratermstation.Main;
 import jp.co.tabocom.teratermstation.model.TargetNode;
 import jp.co.tabocom.teratermstation.model.UseMacroType;
 import jp.co.tabocom.teratermstation.ui.EnvTabItem;
-import jp.co.tabocom.teratermstation.ui.action.TeraTermStationAction;
+import jp.co.tabocom.teratermstation.ui.action.TeratermStationAction;
 
-public class MacroConnectAction extends TeraTermStationAction {
+public class MacroConnectAction extends TeratermStationAction {
 
     private static final int BULK_INTERVAL = 1700;
 
