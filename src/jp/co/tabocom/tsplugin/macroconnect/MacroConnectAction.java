@@ -21,7 +21,6 @@ import org.eclipse.swt.widgets.Shell;
 
 import jp.co.tabocom.teratermstation.Main;
 import jp.co.tabocom.teratermstation.model.TargetNode;
-import jp.co.tabocom.teratermstation.model.UseMacroType;
 import jp.co.tabocom.teratermstation.ui.EnvTabItem;
 import jp.co.tabocom.teratermstation.ui.action.TeratermStationAction;
 
@@ -38,7 +37,7 @@ public class MacroConnectAction extends TeratermStationAction {
 
     @Override
     public boolean isValid() {
-        if (node.getIpAddr() != null && node.getUseMacroType() != UseMacroType.UNUSED) {
+        if (node.getIpAddr() != null) {
             return true;
         }
         return false;
