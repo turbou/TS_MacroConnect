@@ -17,6 +17,7 @@ import jp.co.tabocom.teratermstation.ui.action.TeratermStationAction;
 import jp.co.tabocom.teratermstation.ui.action.TeratermStationBulkAction;
 
 import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.swt.widgets.Shell;
 
@@ -76,5 +77,13 @@ public class MacroConnectPlugin implements TeratermStationPlugin {
     @Override
     public PreferencePage getPreferencePage() {
         return null;
+    }
+
+    @Override
+    public void initialize() {
+    }
+
+    @Override
+    public void teminate(PreferenceStore preferenceStore) {
     }
 }
