@@ -16,6 +16,7 @@ import jp.co.tabocom.teratermstation.plugin.TeratermStationPlugin;
 import jp.co.tabocom.teratermstation.ui.action.TeratermStationAction;
 import jp.co.tabocom.teratermstation.ui.action.TeratermStationBulkAction;
 
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -24,7 +25,22 @@ import org.eclipse.swt.widgets.Shell;
 public class MacroConnectPlugin implements TeratermStationPlugin {
 
     @Override
+    public List<MenuManager> getSubmenus(TargetNode node, Shell shell, ISelectionProvider selectionProvider) {
+        List<MenuManager> list = new ArrayList<MenuManager>();
+        MenuManager subMenu = new MenuManager("マクロ", null);
+        for (TeratermStationAction action: getActionList(node, shell, selectionProvider)) {
+            subMenu.add(action);
+        }
+        list.add(subMenu);
+        return list;
+    }
+
+    @Override
     public List<TeratermStationAction> getActions(TargetNode node, Shell shell, ISelectionProvider selectionProvider) {
+        return null;
+    }
+
+    private List<TeratermStationAction> getActionList(TargetNode node, Shell shell, ISelectionProvider selectionProvider) {
         List<TeratermStationAction> list = new ArrayList<TeratermStationAction>();
 
         FilenameFilter macroFilter = new FilenameFilter() {
@@ -86,4 +102,5 @@ public class MacroConnectPlugin implements TeratermStationPlugin {
     @Override
     public void teminate(PreferenceStore preferenceStore) throws Exception {
     }
+
 }
