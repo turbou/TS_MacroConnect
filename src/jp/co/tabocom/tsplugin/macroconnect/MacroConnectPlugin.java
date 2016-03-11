@@ -29,7 +29,9 @@ public class MacroConnectPlugin implements TeratermStationPlugin {
         List<MenuManager> list = new ArrayList<MenuManager>();
         MenuManager subMenu = new MenuManager("マクロ", null);
         for (TeratermStationAction action: getActionList(node, shell, selectionProvider)) {
-            subMenu.add(action);
+            if (node.getIpAddr() != null && !node.getIpAddr().isEmpty()) {
+                subMenu.add(action);
+            }
         }
         list.add(subMenu);
         return list;
