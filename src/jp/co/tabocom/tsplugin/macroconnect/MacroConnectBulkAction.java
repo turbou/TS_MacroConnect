@@ -4,29 +4,25 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
+
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.ToolTip;
 
 import jp.co.tabocom.teratermstation.Main;
 import jp.co.tabocom.teratermstation.model.TargetNode;
 import jp.co.tabocom.teratermstation.ui.EnvTabItem;
-import jp.co.tabocom.teratermstation.ui.action.TeratermStationBulkAction;
+import jp.co.tabocom.teratermstation.ui.action.TeratermStationAction;
 
-import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Shell;
-
-public class MacroConnectBulkAction extends TeratermStationBulkAction {
+public class MacroConnectBulkAction extends TeratermStationAction {
 
     private static final int BULK_INTERVAL = 1700;
 
-    public MacroConnectBulkAction(List<TargetNode> nodeList, Shell shell) {
-        super(nodeList, shell);
-    }
-
-    @Override
-    public boolean isValid() {
-        return true;
+    public MacroConnectBulkAction(TargetNode[] nodes, Object value, Shell shell) {
+        super("マクロの使用...", null, nodes, value, shell);
     }
 
     @Override
@@ -81,7 +77,7 @@ public class MacroConnectBulkAction extends TeratermStationBulkAction {
         try {
             // チェックされているノードすべてで実行します。もちろん親ノード（サーバ種別を表すノード）は対象外です。
             int idx = 1;
-            for (TargetNode target : nodeList) {
+            for (TargetNode target : nodes) {
                 tabItem.makeAndExecuteTTL(target, idx, macroCmd);
                 idx++;
                 Thread.sleep(BULK_INTERVAL); // スリープしなくても問題はないけど、あまりにも連続でターミナルが開くのもあれなので。
@@ -96,13 +92,10 @@ public class MacroConnectBulkAction extends TeratermStationBulkAction {
     }
 
     @Override
-    public String getDisplayName() {
-        return "マクロの使用...";
-    }
-
-    @Override
-    public String getDescription() {
-        return "*.macroファイルを選択することにより、一括接続されたサーバに対して定型処理を実行することができます。";
+    public ToolTip getToolTip() {
+        ToolTip toolTip = new ToolTip(shell, SWT.BALLOON);
+        toolTip.setMessage("*.macroファイルを選択することにより、一括接続されたサーバに対して定型処理を実行することができます。");
+        return toolTip;
     }
 
 }

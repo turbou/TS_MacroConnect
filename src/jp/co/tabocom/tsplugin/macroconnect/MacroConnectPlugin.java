@@ -10,39 +10,55 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.jface.preference.PreferenceStore;
+import org.eclipse.swt.widgets.Shell;
+
 import jp.co.tabocom.teratermstation.Main;
 import jp.co.tabocom.teratermstation.model.TargetNode;
 import jp.co.tabocom.teratermstation.plugin.TeratermStationPlugin;
 import jp.co.tabocom.teratermstation.ui.action.TeratermStationAction;
-import jp.co.tabocom.teratermstation.ui.action.TeratermStationBulkAction;
-
-import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jface.preference.PreferenceStore;
-import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.swt.widgets.Shell;
+import jp.co.tabocom.teratermstation.ui.action.TeratermStationContextMenu;
 
 public class MacroConnectPlugin implements TeratermStationPlugin {
 
     @Override
-    public List<MenuManager> getSubmenus(TargetNode node, Shell shell, ISelectionProvider selectionProvider) {
-        List<MenuManager> list = new ArrayList<MenuManager>();
-        MenuManager subMenu = new MenuManager("マクロ", null);
-        for (TeratermStationAction action: getActionList(node, shell, selectionProvider)) {
-            if (node.getIpAddr() != null && !node.getIpAddr().isEmpty()) {
-                subMenu.add(action);
-            }
-        }
-        list.add(subMenu);
-        return list;
-    }
-
-    @Override
-    public List<TeratermStationAction> getActions(TargetNode node, Shell shell, ISelectionProvider selectionProvider) {
+    public PreferencePage getPreferencePage() {
         return null;
     }
 
-    private List<TeratermStationAction> getActionList(TargetNode node, Shell shell, ISelectionProvider selectionProvider) {
+    @Override
+    public void initialize() throws Exception {
+    }
+
+    @Override
+    public void teminate(PreferenceStore preferenceStore) throws Exception {
+    }
+
+    @Override
+    public List<TeratermStationContextMenu> getActions(TargetNode[] nodes, Shell shell) {
+        if (nodes[0].getIpAddr() == null) {
+            return null;
+        }
+        TeratermStationContextMenu menu = new TeratermStationContextMenu();
+        menu.setText("マクロ");
+        for (TeratermStationAction action : getActionList(nodes, shell)) {
+            menu.addAction(action);
+        }
+        return new ArrayList<TeratermStationContextMenu>(Arrays.asList(menu));
+    }
+
+    @Override
+    public List<TeratermStationAction> getBulkActions(TargetNode[] nodes, Shell shell) {
+        return new ArrayList<TeratermStationAction>(Arrays.asList(new MacroConnectBulkAction(nodes, null, shell)));
+    }
+
+    @Override
+    public List<TeratermStationContextMenu> getDnDActions(TargetNode[] nodes, Object value, Shell shell) {
+        return null;
+    }
+
+    private List<TeratermStationAction> getActionList(TargetNode[] nodes, Shell shell) {
         List<TeratermStationAction> list = new ArrayList<TeratermStationAction>();
 
         FilenameFilter macroFilter = new FilenameFilter() {
@@ -56,6 +72,7 @@ public class MacroConnectPlugin implements TeratermStationPlugin {
         };
 
         Map<String, File> macroMap = new HashMap<String, File>();
+        TargetNode node = nodes[0];
         File targetFile = node.getFile();
 
         List<File> parentDirList = new ArrayList<File>();
@@ -82,27 +99,9 @@ public class MacroConnectPlugin implements TeratermStationPlugin {
             }
         }
         for (File file : macroMap.values()) {
-            list.add(new MacroConnectAction(node, shell, selectionProvider, file));
+            list.add(new MacroConnectAction(nodes, file, shell));
         }
         return list;
-    }
-
-    @Override
-    public List<TeratermStationBulkAction> getBulkActions(List<TargetNode> nodeList, Shell shell) {
-        return new ArrayList<TeratermStationBulkAction>(Arrays.asList(new MacroConnectBulkAction(nodeList, shell)));
-    }
-
-    @Override
-    public PreferencePage getPreferencePage() {
-        return null;
-    }
-
-    @Override
-    public void initialize() throws Exception {
-    }
-
-    @Override
-    public void teminate(PreferenceStore preferenceStore) throws Exception {
     }
 
 }

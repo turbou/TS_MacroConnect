@@ -2,14 +2,14 @@ package jp.co.tabocom.tsplugin.macroconnect;
 
 import java.io.File;
 
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.ToolTip;
+
 import jp.co.tabocom.teratermstation.Main;
 import jp.co.tabocom.teratermstation.model.TargetNode;
 import jp.co.tabocom.teratermstation.ui.EnvTabItem;
 import jp.co.tabocom.teratermstation.ui.action.TeratermStationAction;
-
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.swt.widgets.Shell;
 
 public class MacroConnectAction extends TeratermStationAction {
 
@@ -17,17 +17,9 @@ public class MacroConnectAction extends TeratermStationAction {
 
     private File file;
 
-    protected MacroConnectAction(TargetNode node, Shell shell, ISelectionProvider selectionProvider, File file) {
-        super(file.getName().replaceAll("\\..*$", ""), "icon.png", node, shell, selectionProvider);
+    public MacroConnectAction(TargetNode[] nodes, File file, Shell shell) {
+        super(file.getName().replaceAll("\\..*$", ""), "icon.png", nodes, file, shell);
         this.file = file;
-    }
-
-    @Override
-    public boolean isValid() {
-        if (node.getIpAddr() != null) {
-            return true;
-        }
-        return false;
     }
 
     @Override
@@ -46,6 +38,7 @@ public class MacroConnectAction extends TeratermStationAction {
             if (macroCmd == null) {
                 return;
             }
+            TargetNode node = nodes[0];
             tabItem.makeAndExecuteTTL(node, 1, macroCmd);
             Thread.sleep(BULK_INTERVAL); // スリープしなくても問題はないけど、あまりにも連続でターミナルが開くのもあれなので。
             if (main.isTtlOnly()) {
@@ -55,5 +48,10 @@ public class MacroConnectAction extends TeratermStationAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public ToolTip getToolTip() {
+        return null;
     }
 }
