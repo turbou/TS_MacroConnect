@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Shift_JIS"?>
 <project name="TS_MacroConnect" default="jar" basedir="." >
     <target name="jar">
-        <jar basedir="bin" jarfile="macroconnect-1.0.2.jar">
+        <jar basedir="bin" jarfile="macroconnect-1.1.0.jar">
             <manifest>
                  <attribute name="Plugin-Class" value="jp.co.tabocom.tsplugin.macroconnect.MacroConnectPlugin"/>
              </manifest>
