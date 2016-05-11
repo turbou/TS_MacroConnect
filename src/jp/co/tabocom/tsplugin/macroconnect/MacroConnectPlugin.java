@@ -3,6 +3,7 @@ package jp.co.tabocom.tsplugin.macroconnect;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,15 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jface.preference.PreferenceStore;
-import org.eclipse.swt.widgets.Shell;
-
 import jp.co.tabocom.teratermstation.Main;
 import jp.co.tabocom.teratermstation.model.TargetNode;
 import jp.co.tabocom.teratermstation.plugin.TeratermStationPlugin;
 import jp.co.tabocom.teratermstation.ui.action.TeratermStationAction;
 import jp.co.tabocom.teratermstation.ui.action.TeratermStationContextMenu;
+
+import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.jface.preference.PreferenceStore;
+import org.eclipse.swt.widgets.Shell;
 
 public class MacroConnectPlugin implements TeratermStationPlugin {
 
@@ -77,7 +78,7 @@ public class MacroConnectPlugin implements TeratermStationPlugin {
 
         List<File> parentDirList = new ArrayList<File>();
         Main main = (Main) shell.getData("main");
-        Path rootPath = main.getToolDefine().getRootDirPath();
+        Path rootPath = Paths.get(main.getCurrentTabItem().getRootDir());
         File rootDir = rootPath.toFile();
 
         File parentDir = targetFile.getParentFile();

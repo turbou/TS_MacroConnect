@@ -31,7 +31,7 @@ public class MacroConnectBulkAction extends TeratermStationAction {
         EnvTabItem tabItem = main.getCurrentTabItem();
         FileDialog fileDialog = new FileDialog(shell);
         fileDialog.setText("マクロを選択してください。");
-        fileDialog.setFilterPath(main.getToolDefine().getRootDirPath().toString());
+        fileDialog.setFilterPath(main.getCurrentTabItem().getRootDir());
         fileDialog.setFilterExtensions(new String[] { "*.macro" });
         String file = fileDialog.open();
         if (file == null) {
