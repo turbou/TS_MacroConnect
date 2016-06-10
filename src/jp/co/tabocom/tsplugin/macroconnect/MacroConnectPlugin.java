@@ -7,9 +7,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import jp.co.tabocom.teratermstation.Main;
 import jp.co.tabocom.teratermstation.model.TargetNode;
@@ -46,6 +46,9 @@ public class MacroConnectPlugin implements TeratermStationPlugin {
         for (TeratermStationAction action : getActionList(nodes, shell)) {
             menu.addAction(action);
         }
+        if (menu.getActionList().isEmpty()) {
+            return null;
+        }
         return new ArrayList<TeratermStationContextMenu>(Arrays.asList(menu));
     }
 
@@ -72,7 +75,7 @@ public class MacroConnectPlugin implements TeratermStationPlugin {
             }
         };
 
-        Map<String, File> macroMap = new HashMap<String, File>();
+        Map<String, File> macroMap = new TreeMap<String, File>();
         TargetNode node = nodes[0];
         File targetFile = node.getFile();
 
