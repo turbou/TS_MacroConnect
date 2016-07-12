@@ -9,10 +9,10 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolTip;
 
 import jp.co.tabocom.teratermstation.Main;
+import jp.co.tabocom.teratermstation.TeratermStationShell;
 import jp.co.tabocom.teratermstation.model.TargetNode;
 import jp.co.tabocom.teratermstation.ui.EnvTabItem;
 import jp.co.tabocom.teratermstation.ui.action.TeratermStationAction;
@@ -21,13 +21,13 @@ public class MacroConnectBulkAction extends TeratermStationAction {
 
     private static final int BULK_INTERVAL = 1700;
 
-    public MacroConnectBulkAction(TargetNode[] nodes, Object value, Shell shell) {
+    public MacroConnectBulkAction(TargetNode[] nodes, Object value, TeratermStationShell shell) {
         super("マクロの使用...", null, nodes, value, shell);
     }
 
     @Override
     public void run() {
-        Main main = (Main) shell.getData("main");
+        Main main = this.shell.getMain();
         EnvTabItem tabItem = main.getCurrentTabItem();
         FileDialog fileDialog = new FileDialog(shell);
         fileDialog.setText("マクロを選択してください。");

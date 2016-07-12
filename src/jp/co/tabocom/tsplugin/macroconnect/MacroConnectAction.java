@@ -3,10 +3,10 @@ package jp.co.tabocom.tsplugin.macroconnect;
 import java.io.File;
 
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolTip;
 
 import jp.co.tabocom.teratermstation.Main;
+import jp.co.tabocom.teratermstation.TeratermStationShell;
 import jp.co.tabocom.teratermstation.model.TargetNode;
 import jp.co.tabocom.teratermstation.ui.EnvTabItem;
 import jp.co.tabocom.teratermstation.ui.action.TeratermStationAction;
@@ -17,14 +17,14 @@ public class MacroConnectAction extends TeratermStationAction {
 
     private File file;
 
-    public MacroConnectAction(TargetNode[] nodes, File file, Shell shell) {
+    public MacroConnectAction(TargetNode[] nodes, File file, TeratermStationShell shell) {
         super(file.getName().replaceAll("\\..*$", ""), "icon.png", nodes, file, shell);
         this.file = file;
     }
 
     @Override
     public void run() {
-        Main main = (Main) this.shell.getData("main");
+        Main main = this.shell.getMain();
         EnvTabItem tabItem = main.getCurrentTabItem();
 
         try {
